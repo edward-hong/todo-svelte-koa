@@ -1,9 +1,18 @@
+require('dotenv').config()
 const Koa = require('koa')
+const AWS = require('aws-sdk')
 const bodyParser = require('koa-bodyparser')
 const koaValidator = require('koa-async-validator')
 
 const authRouter = require('./routes/auth')
 const errorHandler = require('./middlewares/error')
+
+AWS.config.update({
+  region: 'ap-northeast-1',
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET,
+  endpoint: 'https://dynamodb.ap-northeast-1.amazonaws.com',
+})
 
 const app = new Koa()
 

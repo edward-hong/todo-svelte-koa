@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/index.js",
+    "server": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,15 @@
   "bugs": {
     "url": "https://github.com/edward-hong/todo-svelte-koa/issues"
   },
-  "homepage": "https://github.com/edward-hong/todo-svelte-koa#readme"
+  "homepage": "https://github.com/edward-hong/todo-svelte-koa#readme",
+  "dependencies": {
+    "@koa/router": "^9.4.0",
+    "koa": "^2.13.0",
+    "koa-async-validator": "^0.4.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^9.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }

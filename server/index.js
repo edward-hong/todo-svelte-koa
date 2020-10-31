@@ -1,13 +1,13 @@
 require('dotenv').config()
 const Koa = require('koa')
-const AWS = require('aws-sdk')
+const dynamoose = require('dynamoose')
 const bodyParser = require('koa-bodyparser')
 const koaValidator = require('koa-async-validator')
 
 const authRouter = require('./routes/auth')
 const errorHandler = require('./middlewares/error')
 
-AWS.config.update({
+dynamoose.aws.sdk.config.update({
   region: 'ap-northeast-1',
   accessKeyId: process.env.AWS_KEY,
   secretAccessKey: process.env.AWS_SECRET,

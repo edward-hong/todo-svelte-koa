@@ -20,8 +20,8 @@
   "homepage": "https://github.com/edward-hong/todo-svelte-koa#readme",
   "dependencies": {
     "@koa/router": "^9.4.0",
-    "aws-sdk": "^2.782.0",
     "dotenv": "^8.2.0",
+    "dynamoose": "^2.3.0",
     "koa": "^2.13.0",
     "koa-async-validator": "^0.4.1",
     "koa-bodyparser": "^4.3.0",

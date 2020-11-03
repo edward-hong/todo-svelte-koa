@@ -20,8 +20,11 @@
   "homepage": "https://github.com/edward-hong/todo-svelte-koa#readme",
   "dependencies": {
     "@koa/router": "^9.4.0",
+    "@sendgrid/mail": "^7.3.0",
+    "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "dynamoose": "^2.3.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-async-validator": "^0.4.1",
     "koa-bodyparser": "^4.3.0",

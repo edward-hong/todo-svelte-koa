@@ -41,8 +41,51 @@ exports.signup = async (ctx) => {
       ctx.body = {
         message: `Email has been sent to ${email}. Follow the instructions to activate your account.`,
       }
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      ctx.body = { error: err }
+    }
+  }
+}
+
+exports.signin = async (ctx) => {
+  if (ctx.status === 200) {
+    const { email, password } = ctx.request.body
+
+    try {
+      const foundUser = await User.get({ email })
+
+      if (!foundUser) {
+        ctx.status = 400
+        ctx.body = {
+          error: 'User with that email does not exist. Please signup',
+        }
+      } else {
+        ctx.body = foundUser
+
+        const hashedPassword = crypto
+          .createHmac('sha1', foundUser.salt)
+          .update(password)
+          .digest('hex')
+
+        if (hashedPassword !== foundUser.hashedPassword) {
+          ctx.status = 400
+          ctx.body = {
+            error: 'Email and password do not match',
+          }
+        } else {
+          const token = jwt.sign(
+            { email: foundUser.email },
+            process.env.JWT_SECRET,
+            { expiresIn: '7d' },
+          )
+          ctx.body = {
+            token,
+            user: { name: foundUser.name, email: foundUser.email },
+          }
+        }
+      }
+    } catch (err) {
+      ctx.body = { error: err }
     }
   }
 }

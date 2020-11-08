@@ -2,7 +2,6 @@ const dynamoose = require('dynamoose')
 
 const userSchema = new dynamoose.Schema(
   {
-    id: String,
     name: {
       type: String,
       required: true,
@@ -10,6 +9,7 @@ const userSchema = new dynamoose.Schema(
     email: {
       type: String,
       required: true,
+      hashKey: true,
     },
     hashedPassword: {
       type: String,

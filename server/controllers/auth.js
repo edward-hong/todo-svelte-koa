@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const sgMail = require('@sendgrid/mail')
+const crypto = require('crypto')
 
 const User = require('../models/user')
 
@@ -42,6 +43,36 @@ exports.signup = async (ctx) => {
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+
+exports.accountActivation = async (ctx) => {
+  const { token } = ctx.request.body
+
+  if (token) {
+    try {
+      jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION)
+
+      const { name, email, password } = jwt.decode(token)
+
+      const salt = Math.round(new Date().valueOf() * Math.random()) + ''
+
+      const hashedPassword = crypto
+        .createHmac('sha1', salt)
+        .update(password)
+        .digest('hex')
+
+      const newUser = new User({ name, email, salt, hashedPassword })
+
+      await newUser.save()
+      ctx.status = 200
+      ctx.body = { message: 'Signup success. Please signin' }
+      console.log(ctx)
+    } catch (err) {
+      ctx.body = {
+        error: err,
+      }
     }
   }
 }

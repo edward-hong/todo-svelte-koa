@@ -111,7 +111,6 @@ exports.accountActivation = async (ctx) => {
       await newUser.save()
       ctx.status = 200
       ctx.body = { message: 'Signup success. Please signin' }
-      console.log(ctx)
     } catch (err) {
       ctx.body = {
         error: err,

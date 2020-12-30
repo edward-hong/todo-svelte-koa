@@ -1,6 +1,7 @@
 require('dotenv').config()
 const Koa = require('koa')
 const dynamoose = require('dynamoose')
+const cors = require('@koa/cors')
 const bodyParser = require('koa-bodyparser')
 const koaValidator = require('koa-async-validator')
 
@@ -18,6 +19,7 @@ const app = new Koa()
 
 app.use(errorHandler)
 
+app.use(cors())
 app.use(bodyParser())
 app.use(koaValidator())
 app.use(authRouter.routes())

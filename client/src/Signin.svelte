@@ -27,7 +27,7 @@
     <div class="cell large-8 large-offset-2">
       <p>
         Forgot password? Click
-        <a href="#">here</a>
+        <a href="/forgot">here</a>
       </p>
     </div>
   </div>

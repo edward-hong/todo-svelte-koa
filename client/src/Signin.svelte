@@ -1,8 +1,35 @@
 <script>
+  import axios from 'axios'
+
+  import { alert } from './stores'
+  import {
+    DEV_SERVER_URL,
+    PROD_SERVER_URL,
+    SIGNIN_SERVER_PATH,
+  } from './constants'
+
   let email = ''
   let password = ''
 
-  function handleSignin() {}
+  function handleSignin() {
+    axios({
+      method: 'POST',
+      url: `${
+        isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
+      }${SIGNIN_SERVER_PATH}`,
+      data: { email, password },
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch(() => {
+        alert.set({
+          show: true,
+          status: 'alert',
+          msg: 'Signin failed please try again',
+        })
+      })
+  }
 </script>
 
 <h1 class="text-center">Signin</h1>

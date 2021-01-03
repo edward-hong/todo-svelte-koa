@@ -1,9 +1,47 @@
 <script>
+  import axios from 'axios'
+  import router from 'page'
+
+  import { alert } from './stores'
+  import { isAuth } from './utils/helpers'
+  import {
+    HOME_PATH,
+    DEV_SERVER_URL,
+    PROD_SERVER_URL,
+    SIGNUP_SERVER_PATH,
+  } from './constants'
+
   let name = ''
   let email = ''
   let password = ''
 
-  function handleSignup() {}
+  if (isAuth()) {
+    router.redirect(HOME_PATH)
+  }
+
+  function handleSignup() {
+    axios({
+      method: 'POST',
+      url: `${
+        isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
+      }${SIGNUP_SERVER_PATH}`,
+      data: { name, email, password },
+    })
+      .then((response) => {
+        alert.set({
+          show: true,
+          status: 'success',
+          msg: response.data.message,
+        })
+      })
+      .catch(() => {
+        alert.set({
+          show: true,
+          status: 'alert',
+          msg: 'Signup failed please try again',
+        })
+      })
+  }
 </script>
 
 <h1 class="text-center">Signup</h1>

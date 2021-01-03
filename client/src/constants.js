@@ -1,7 +1,11 @@
+export const HOME_PATH = '/'
 export const SIGNIN_PATH = '/signin'
 export const SIGNUP_PATH = '/signup'
 export const FORGOT_PATH = '/forgot'
+export const ACTIVATE_PATH = '/activate/:token'
 
 export const DEV_SERVER_URL = 'http://localhost:5000'
 export const PROD_SERVER_URL = 'https://todo-svelte-koa.herokuapp.com'
 export const SIGNIN_SERVER_PATH = '/auth/signin'
+export const SIGNUP_SERVER_PATH = '/auth/signup'
+export const ACTIVATE_SERVER_PATH = '/auth/activation'

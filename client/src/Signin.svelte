@@ -1,8 +1,11 @@
 <script>
   import axios from 'axios'
+  import router from 'page'
 
   import { alert } from './stores'
+  import { authenticate, isAuth } from './utils/helpers'
   import {
+    HOME_PATH,
     DEV_SERVER_URL,
     PROD_SERVER_URL,
     SIGNIN_SERVER_PATH,
@@ -10,6 +13,10 @@
 
   let email = ''
   let password = ''
+
+  if (isAuth()) {
+    router.redirect(HOME_PATH)
+  }
 
   function handleSignin() {
     axios({
@@ -20,7 +27,13 @@
       data: { email, password },
     })
       .then((response) => {
-        console.log(response)
+        authenticate(response)
+        alert.set({
+          show: true,
+          status: 'success',
+          msg: 'Signin successful',
+        })
+        router.redirect(HOME_PATH)
       })
       .catch(() => {
         alert.set({

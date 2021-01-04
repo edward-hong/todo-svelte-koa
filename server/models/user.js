@@ -18,7 +18,12 @@ const userSchema = new dynamoose.Schema(
     salt: String,
     resetPasswordLink: {
       type: String,
-      default: '',
+      default: 'default',
+      index: {
+        global: true,
+        project: true,
+        name: 'resetPasswordLink-index',
+      },
     },
   },
   { timestamps: true },

@@ -16,3 +16,17 @@ exports.userSigninValidator = async (ctx, next) => {
 
   await next()
 }
+
+exports.forgotPasswordValidator = async (ctx, next) => {
+  ctx.checkBody('email', 'Must be a valid email address').isEmail()
+
+  await next()
+}
+
+exports.resetPasswordValidator = async (ctx, next) => {
+  ctx
+    .checkBody('newPassword', 'Password must be at least 6 characters long')
+    .isLength({ min: 6 })
+
+  await next()
+}

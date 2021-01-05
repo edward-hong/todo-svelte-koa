@@ -3,7 +3,7 @@ const Todo = require('../models/todo')
 exports.userTodos = async (ctx) => {
   try {
     const todos = await Todo.query('userEmail')
-      .eq(ctx.request.body.userEmail)
+      .eq(ctx.request.query.userEmail)
       .using('userEmail-index')
       .all()
       .exec()
@@ -21,6 +21,7 @@ exports.addTodo = async (ctx) => {
 
   try {
     const savedTodo = await newTodo.save()
+    savedTodo.completed = false
 
     ctx.body = {
       todo: savedTodo,

@@ -7,8 +7,15 @@ export const ACTIVATE_PATH = '/activate/:token'
 
 export const DEV_SERVER_URL = 'http://localhost:5000'
 export const PROD_SERVER_URL = 'https://todo-svelte-koa.herokuapp.com'
+
 export const SIGNIN_SERVER_PATH = '/auth/signin'
 export const SIGNUP_SERVER_PATH = '/auth/signup'
 export const ACTIVATE_SERVER_PATH = '/auth/activation'
 export const FORGOT_SERVER_PATH = '/auth/forgot'
 export const RESET_SERVER_PATH = '/auth/reset'
+
+export const TODOS_SERVER_PATH = '/todo'
+export const ADD_TODO_SERVER_PATH = '/todo/add'
+export const REMOVE_TODO_SERVER_PATH = '/todo/remove'
+export const EDIT_TODO_SERVER_PATH = '/todo/edit'
+export const COMPLETE_TODO_SERVER_PATH = '/todo/complete'

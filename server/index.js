@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
   const send = require('koa-send')
 
   const prodRouter = new Router()
-  prodRouter.get(':splat*', async (ctx) => {
+  prodRouter.get('(.*)', async (ctx) => {
     await send(ctx, ctx.path, {
       root: path.resolve(__dirname, '..', 'client', 'public', 'index.html'),
     })

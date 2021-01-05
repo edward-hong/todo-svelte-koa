@@ -13,36 +13,36 @@
 
   let name = decode(token).name
 
-  function handleActivate() {
-    axios({
-      method: 'POST',
-      url: `${
-        isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
-      }${ACTIVATE_SERVER_PATH}`,
-      data: { token },
-    })
-      .then((response) => {
-        if (response.data.error) {
-          alert.set({
-            show: true,
-            status: 'alert',
-            msg: response.data.error.message,
-          })
-        } else {
-          alert.set({
-            show: true,
-            status: 'success',
-            msg: response.data.message,
-          })
-        }
+  async function handleActivate() {
+    try {
+      const response = await axios({
+        method: 'POST',
+        url: `${
+          isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
+        }${ACTIVATE_SERVER_PATH}`,
+        data: { token },
       })
-      .catch(() => {
+
+      if (response.data.error) {
         alert.set({
           show: true,
           status: 'alert',
-          msg: 'Activation failed please try again',
+          msg: response.data.error.message,
         })
+      } else {
+        alert.set({
+          show: true,
+          status: 'success',
+          msg: response.data.message,
+        })
+      }
+    } catch (err) {
+      alert.set({
+        show: true,
+        status: 'alert',
+        msg: 'Activation failed please try again',
       })
+    }
   }
 </script>
 

@@ -18,30 +18,30 @@
     router.redirect(HOME_PATH)
   }
 
-  function handleSignin() {
-    axios({
-      method: 'POST',
-      url: `${
-        isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
-      }${SIGNIN_SERVER_PATH}`,
-      data: { email, password },
-    })
-      .then((response) => {
-        authenticate(response)
-        alert.set({
-          show: true,
-          status: 'success',
-          msg: 'Signin successful',
-        })
-        router.redirect(HOME_PATH)
+  async function handleSignin() {
+    try {
+      const response = await axios({
+        method: 'POST',
+        url: `${
+          isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
+        }${SIGNIN_SERVER_PATH}`,
+        data: { email, password },
       })
-      .catch(() => {
-        alert.set({
-          show: true,
-          status: 'alert',
-          msg: 'Signin failed please try again',
-        })
+
+      authenticate(response)
+      alert.set({
+        show: true,
+        status: 'success',
+        msg: 'Signin successful',
       })
+      router.redirect(HOME_PATH)
+    } catch (err) {
+      alert.set({
+        show: true,
+        status: 'alert',
+        msg: 'Signin failed please try again',
+      })
+    }
   }
 </script>
 

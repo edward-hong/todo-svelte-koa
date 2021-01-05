@@ -19,28 +19,27 @@
     router.redirect(HOME_PATH)
   }
 
-  function handleSignup() {
-    axios({
-      method: 'POST',
-      url: `${
-        isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
-      }${SIGNUP_SERVER_PATH}`,
-      data: { name, email, password },
-    })
-      .then((response) => {
-        alert.set({
-          show: true,
-          status: 'success',
-          msg: response.data.message,
-        })
+  async function handleSignup() {
+    try {
+      const response = await axios({
+        method: 'POST',
+        url: `${
+          isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
+        }${SIGNUP_SERVER_PATH}`,
+        data: { name, email, password },
       })
-      .catch(() => {
-        alert.set({
-          show: true,
-          status: 'alert',
-          msg: 'Signup failed please try again',
-        })
+      alert.set({
+        show: true,
+        status: 'success',
+        msg: response.data.message,
       })
+    } catch (err) {
+      alert.set({
+        show: true,
+        status: 'alert',
+        msg: 'Signup failed please try again',
+      })
+    }
   }
 </script>
 

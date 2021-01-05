@@ -6,6 +6,7 @@ const bodyParser = require('koa-bodyparser')
 const koaValidator = require('koa-async-validator')
 
 const authRouter = require('./routes/auth')
+const todoRouter = require('./routes/todo')
 const errorHandler = require('./middlewares/error')
 
 dynamoose.aws.sdk.config.update({
@@ -24,6 +25,8 @@ app.use(bodyParser())
 app.use(koaValidator())
 app.use(authRouter.routes())
 app.use(authRouter.allowedMethods())
+app.use(todoRouter.routes())
+app.use(todoRouter.allowedMethods())
 
 if (process.env.NODE_ENV === 'production') {
   const serve = require('koa-static')

@@ -6,53 +6,57 @@
   import { isAuth } from './utils/helpers'
   import {
     HOME_PATH,
+    SIGNIN_PATH,
     DEV_SERVER_URL,
     PROD_SERVER_URL,
-    FORGOT_SERVER_PATH,
+    RESET_SERVER_PATH,
   } from './constants'
 
-  let email = ''
+  export let token
+
+  let newPassword = ''
 
   if (isAuth()) {
     router.redirect(HOME_PATH)
   }
 
-  async function handleForgot() {
+  async function handleReset() {
     try {
-      const response = await axios({
+      await axios({
         method: 'PUT',
         url: `${
           isProduction ? PROD_SERVER_URL : DEV_SERVER_URL
-        }${FORGOT_SERVER_PATH}`,
-        data: { email },
+        }${RESET_SERVER_PATH}`,
+        data: { resetPasswordLink: token, newPassword },
       })
+      router.redirect(SIGNIN_PATH)
       alert.set({
         show: true,
         status: 'success',
-        msg: response.data.message,
+        msg: 'Reset password successful. Please Signin',
       })
     } catch (err) {
       alert.set({
         show: true,
         status: 'alert',
-        msg: 'Forgot password failed please try again',
+        msg: 'Reset password failed please try again',
       })
     }
   }
 </script>
 
-<h1 class="text-center">Forgot Password</h1>
+<h1 class="text-center">Reset Password</h1>
 
-<form on:submit|preventDefault={handleForgot}>
+<form on:submit|preventDefault={handleReset}>
   <div class="grid-x grid-padding-x">
     <div class="cell large-8 large-offset-2">
       <label>
-        Email
-        <input type="email" placeholder="j.doe@email.com" bind:value={email} />
+        New Password
+        <input type="password" placeholder="123456" bind:value={newPassword} />
       </label>
     </div>
     <div class="cell large-8 large-offset-2">
-      <button type="submit" class="button expanded">Reset Password</button>
+      <button type="submit" class="button expanded">Reset</button>
     </div>
   </div>
 </form>

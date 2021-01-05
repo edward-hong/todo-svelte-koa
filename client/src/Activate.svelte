@@ -1,9 +1,12 @@
 <script>
   import decode from 'jwt-decode'
   import axios from 'axios'
+  import router from 'page'
 
   import { alert } from './stores'
+  import { isAuth } from './utils/helpers'
   import {
+    HOME_PATH,
     DEV_SERVER_URL,
     PROD_SERVER_URL,
     ACTIVATE_SERVER_PATH,
@@ -11,7 +14,13 @@
 
   export let token
 
-  let name = decode(token).name
+  let name = ''
+
+  if (isAuth()) {
+    router.redirect(HOME_PATH)
+  } else {
+    name = decode(token).name
+  }
 
   async function handleActivate() {
     try {

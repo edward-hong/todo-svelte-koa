@@ -6,6 +6,7 @@
   import Signin from './Signin.svelte'
   import Signup from './Signup.svelte'
   import Forgot from './Forgot.svelte'
+  import Reset from './Reset.svelte'
   import Activate from './Activate.svelte'
   import Alert from './Alert.svelte'
   import { alert } from './stores'
@@ -14,6 +15,7 @@
     SIGNIN_PATH,
     SIGNUP_PATH,
     FORGOT_PATH,
+    RESET_PATH,
     ACTIVATE_PATH,
   } from './constants'
 
@@ -23,6 +25,14 @@
   router(SIGNIN_PATH, () => (page = Signin))
   router(SIGNUP_PATH, () => (page = Signup))
   router(FORGOT_PATH, () => (page = Forgot))
+  router(
+    RESET_PATH,
+    (ctx, next) => {
+      token = ctx.params.token
+      next()
+    },
+    () => (page = Reset),
+  )
   router(
     ACTIVATE_PATH,
     (ctx, next) => {

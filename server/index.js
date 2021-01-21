@@ -28,25 +28,6 @@ app.use(authRouter.allowedMethods())
 app.use(todoRouter.routes())
 app.use(todoRouter.allowedMethods())
 
-if (process.env.NODE_ENV === 'production') {
-  const serve = require('koa-static')
-
-  app.use(serve('client/public'))
-
-  const path = require('path')
-  const Router = require('@koa/router')
-  const send = require('koa-send')
-
-  const prodRouter = new Router()
-  prodRouter.get('(.*)', async (ctx) => {
-    await send(ctx, ctx.path, {
-      root: path.resolve(__dirname, '..', 'client', 'public', 'index.html'),
-    })
-  })
-
-  app.use(prodRouter.routes())
-}
-
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {

@@ -23,7 +23,7 @@
   let addTodo = ''
   let tempTodo = ''
 
-  const userEmail = JSON.parse(localStorage.getItem('user')).email
+  const userEmail = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).email : null
 
   async function getTodos() {
     const response = await axios({

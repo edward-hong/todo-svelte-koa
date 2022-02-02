@@ -1,15 +1,17 @@
 <script>
+  import { afterUpdate } from 'svelte'
   import router from 'page'
 
-  import Navbar from './Navbar.svelte'
-  import Home from './Home.svelte'
-  import Signin from './Signin.svelte'
-  import Signup from './Signup.svelte'
-  import Forgot from './Forgot.svelte'
-  import Reset from './Reset.svelte'
-  import Activate from './Activate.svelte'
-  import Alert from './Alert.svelte'
+  import Navbar from './components/Navbar.svelte'
+  import Home from './pages/Home.svelte'
+  import Signin from './pages/Signin.svelte'
+  import Signup from './pages/Signup.svelte'
+  import Forgot from './pages/Forgot.svelte'
+  import Reset from './pages/Reset.svelte'
+  import Activate from './pages/Activate.svelte'
+  import Alert from './components/Alert.svelte'
   import { alert } from './stores'
+  import { isAuth } from './utils/helpers'
   import {
     HOME_PATH,
     SIGNIN_PATH,
@@ -19,7 +21,7 @@
     ACTIVATE_PATH,
   } from './constants'
 
-  let page, token
+  let page, token, authenticated = isAuth()
 
   router(HOME_PATH, () => (page = Home))
   router(SIGNIN_PATH, () => (page = Signin))
@@ -43,9 +45,13 @@
   )
 
   router.start()
+
+  afterUpdate(() => {
+    authenticated = isAuth()
+  })
 </script>
 
-<Navbar />
+<Navbar {authenticated} />
 
 {#if $alert.show}
   <Alert status={$alert.status} msg={$alert.msg} />

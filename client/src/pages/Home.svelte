@@ -2,7 +2,7 @@
   import axios from 'axios'
   import router from 'page'
 
-  import { isAuth } from './utils/helpers'
+  import { isAuth } from '../utils/helpers'
   import {
     SIGNIN_PATH,
     DEV_SERVER_URL,
@@ -12,11 +12,13 @@
     REMOVE_TODO_SERVER_PATH,
     EDIT_TODO_SERVER_PATH,
     COMPLETE_TODO_SERVER_PATH,
-  } from './constants'
+  } from '../constants'
 
   if (!isAuth()) {
     router.redirect(SIGNIN_PATH)
   }
+
+  export let token
 
   let todos = []
   let completedTodos = []

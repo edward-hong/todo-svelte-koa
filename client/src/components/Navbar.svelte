@@ -1,7 +1,9 @@
 <script>
-  import { alert } from './stores'
-  import { isAuth, signout } from './utils/helpers'
-  import { SIGNIN_PATH, SIGNUP_PATH } from './constants'
+  import { alert } from '../stores'
+  import { isAuth, signout } from '../utils/helpers'
+  import { SIGNIN_PATH, SIGNUP_PATH } from '../constants'
+
+  export let authenticated
 
   function handleSignout() {
     signout(() => {
@@ -28,7 +30,7 @@
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-      {#if isAuth()}
+      {#if authenticated}
         <li>
           <a on:click={handleSignout} href={SIGNIN_PATH}>Signout</a>
         </li>

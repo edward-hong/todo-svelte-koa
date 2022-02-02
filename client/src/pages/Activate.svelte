@@ -3,14 +3,14 @@
   import axios from 'axios'
   import router from 'page'
 
-  import { alert } from './stores'
-  import { isAuth } from './utils/helpers'
+  import { alert } from '../stores'
+  import { isAuth } from '../utils/helpers'
   import {
     HOME_PATH,
     DEV_SERVER_URL,
     PROD_SERVER_URL,
     ACTIVATE_SERVER_PATH,
-  } from './constants'
+  } from '../constants'
 
   export let token
 
